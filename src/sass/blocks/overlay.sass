@@ -1,0 +1,25 @@
+.overlay
+    display: none
+    justify-content: center
+    align-items: center
+    position: fixed
+    top: 0
+    left: 0
+    width: 100vw
+    height: 100vh
+    background-color: #86868677
+    img
+        width: 50%
+    &--active
+        display: flex
+    &__close
+        position: absolute
+        top: 25px
+        right: 25px
+        margin: 25px 0 0
+        font-size: 25px
+        padding: 5px
+        cursor: pointer
+        transition: .4s all linear
+        &:hover
+            color: red
