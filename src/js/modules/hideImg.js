@@ -1,34 +1,33 @@
+import imgCounter from "./imgCounter";
+import renderImgs from "./renderImgs";
+import saveToLocalStorage from "./saveToLocalstorage";
+
 function hideImg() {
-    const hide = document.querySelectorAll('.gallery__box-hide');
-    const allImgs = document.querySelectorAll('.gallery__img');
-
+    const allImgs = document.querySelectorAll('.gallery__img'),
+        parent = document.querySelector('.gallery');
     let allImgsSrc = [];
-
     allImgs.forEach((e) => {
         allImgsSrc.push(e.getAttribute('src'));
     });
-
-    hide.forEach((e) => {
-        e.addEventListener('click', (e) => {
+    saveToLocalStorage('All', allImgsSrc);
+    parent.addEventListener('click', (e) => {
+        if (e.target.className == "gallery__box-hide") {
             const index = e.target.dataset.id;
             allImgsSrc.splice(index, 1);
-            console.log(allImgsSrc);
-            renderNewImgs(allImgsSrc);
-        });
+            renderImgs(allImgsSrc);
+            saveToLocalStorage('Remained', allImgsSrc);
+            imgCounter();
+        }
     });
 }
 
-function renderNewImgs(allImgsSrc) {
-    const parent = document.querySelector('.gallery');
-
-    // for (let i = 0; i < allImgsSrc.length; i++) {
-    //     parent.innerHTML = `
-    //         <div class="gallery__box">
-    //             <img class="gallery__img" src="${allImgsSrc[i]}" alt="img-${i+1}">
-    //             <div class='gallery__box-hide' data-id='${i}'>&#x2716;</div>
-    //         </div>
-    //     `;
-    // }
+function firstLoad() {
+    if (localStorage.getItem('Remained')) {
+        const srcArr = JSON.parse(localStorage.getItem('Remained'));
+        renderImgs(srcArr);
+        imgCounter();
+    }
 }
 
+export { firstLoad };
 export default hideImg;

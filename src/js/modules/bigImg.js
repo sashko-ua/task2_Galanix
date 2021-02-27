@@ -6,13 +6,11 @@ function bigImg() {
         e.addEventListener('click', () => {
             const src = e.getAttribute('src'),
                 alt = e.getAttribute('alt');
-
             overlay.innerHTML = `
                 <img src="${src}" alt="${alt}"> 
                 <div class='overlay__close'>&#x2716;</div>
             `;
             overlay.classList.add('overlay--active');
-
             closeModal(overlay);
         });
     });
